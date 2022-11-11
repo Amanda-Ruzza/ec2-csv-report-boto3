@@ -1,11 +1,17 @@
 import boto3
 import csv
 
-# Get the available instances
+# Get the available instances with a paginator
 def Get_Instances():
     ec2 = boto3.client('ec2')
-    response = ec2.describe_instances()
-    return response['Reservations'][0]['Instances']
+    paginator = ec2.get_paginator('describe_instances')
+    page_iterator = paginator.paginate()
+    response = [] # looping through the paginator, finding the instances, and putting them in an array
+    for page in page_iterator:
+        for instance in page['Reservations'][0]['Instances']:
+            response.append(instance)
+    return response
+
 
 # Write the output information into CSV
 def CSV_Writer(header, content):
