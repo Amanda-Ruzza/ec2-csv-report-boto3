@@ -5,5 +5,5 @@ This Python/Boto3 automation script creates a CSV file reporting all EC2 instanc
 
 ---
 
-_________________
+
 
